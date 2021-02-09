@@ -14,7 +14,7 @@ class pic extends Component {
             href="LED4Agriculture"
             style={{ height: "34rem" }}
           />
-          <Carousel.Caption classname="justify-content-center">
+          <Carousel.Caption className="justify-content-center">
             <p
               className="carousel-caption text-center"
               style={{

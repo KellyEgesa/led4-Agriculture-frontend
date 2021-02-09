@@ -43,6 +43,11 @@ class AddModule extends Form {
   };
 
   onChangeHandler = (event) => {
+    if (event.target.files[0].type !== "application/pdf") {
+      toast.error(event.target.files[0].name + " is not in pdf format");
+      return (this.myFormRef.value = "");
+    }
+    console.log();
     const data = { ...this.state.data };
     data["added"] = true;
     this.setState({ data });

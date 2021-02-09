@@ -56,7 +56,11 @@ class AddEresource extends Form {
         this.setState({ data });
         axios.post(apiUrl + "/emodule/", data);
         toast.success("Added a new e-resource");
-        this.setState({ loaded: false });
+        this.setState({
+          loaded: false,
+          data: { heading: "", added: "" },
+          selectedFile: "",
+        });
       })
       .catch((error) => {
         toast.error("Eresource wasnt added");
@@ -77,6 +81,7 @@ class AddEresource extends Form {
   };
   render() {
     const { loaded } = this.state;
+    let a = Math.floor(Math.random() * 10);
     return (
       <div className="card rounded-lg p-3 m-2 p-flex">
         <h1 className="text-center p-2">E-RESOURCES PAGE</h1>
@@ -96,13 +101,13 @@ class AddEresource extends Form {
                     <h3 className="text-center">Add an Eresource</h3>
                     <label>Choose The Topic</label>
                     {this.state.resources.map((item) => (
-                      <div className="form-check" key={item._id}>
+                      <div className="form-check" key={item}>
                         <input
                           className="form-check-input"
                           type="radio"
                           name="exampleRadios"
-                          id="exampleRadios1"
-                          value="option1"
+                          id="exampleRadios"
+                          value="option"
                           ref={(el) => (this.myFormRef = el)}
                           onClick={() => this.handleResourceSelect(item)}
                         />

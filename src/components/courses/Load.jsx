@@ -45,12 +45,14 @@ class Load extends Component {
                   style={{
                     border: "0",
                     width: "100%",
-                    backgroundColor: "#E88E77",
+                    backgroundColor: "#333941",
                     color: "whitesmoke",
                   }}
                 >
                   <div className="card-body align-items-center d-flex justify-content-center">
-                    <h5>{items.topic}</h5>
+                    <h5 style={{ color: "white", fontSize: "100%" }}>
+                      {items.topic}
+                    </h5>
                   </div>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getTestId } from "../service/test";
+import { reachUser } from "../service/user";
 import { markUser } from "../service/user";
 
 class Test extends Component {
@@ -16,6 +17,7 @@ class Test extends Component {
         var index = ty.indexOf(items);
         ty.splice(index, 1);
       }
+      return null;
     });
     this.setState({ answer: [...ty, answerBuff] });
   }
@@ -35,21 +37,29 @@ class Test extends Component {
         if (item._id === items.question) {
           return item;
         }
+        return null;
       });
-      if (a.answer != items.choice) {
+      if (a.answer !== items.choice) {
         const ty = this.state.errors;
         ty.splice(0, 0, a.description);
         this.setState({ errors: [...ty] });
       }
+      return null;
     });
     this.setState({ marked: true });
     this.marks();
   }
+  async handleModule(id) {
+    const data = { modules: this.props.match.params.id };
+    const { data: users } = await reachUser(id, data);
+    this.setState({ users });
+  }
   async marks() {
+    const { user } = this.props;
+    this.handleModule(user._id);
     const { errors, questions } = this.state;
     const mark = questions.length - errors.length;
     this.setState({ mark });
-    const { user } = this.props;
     const marks = mark + "/" + questions.length;
     const data = { modules: this.props.match.params.id, marks: marks };
     const { data: users } = await markUser(user._id, data);

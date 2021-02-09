@@ -38,7 +38,7 @@ class EditTopic extends Form {
     });
   };
   render() {
-    const { loaded, topic } = this.state;
+    const { loaded } = this.state;
     return (
       <div className="m-2">
         {!loaded ? (

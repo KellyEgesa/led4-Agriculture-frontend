@@ -11,7 +11,6 @@ class viewEresource extends Component {
     const module = modules.filter(
       (e) => e.topic === this.props.match.params.name
     );
-    console.log(module);
     this.setState({ module });
   }
   openPdf(a) {

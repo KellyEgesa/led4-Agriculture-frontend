@@ -12,9 +12,6 @@ import MainPage from "./components/courses/landing";
 import HomePage from "./components/homepage";
 import Load from "./components/courses/Load";
 import Eresource from "./components/eresources";
-import Whatwedo from "./components/whatwedo";
-import Partners from "./components/partners";
-import Contact from "./components/contact";
 import Module from "./components/courses/modules";
 import Test from "./components/courses/test";
 import Admin from "./components/admin";
@@ -71,15 +68,12 @@ class App extends Component {
                 if (!localStorage.getItem("token")) {
                   return <Redirect to="login" />;
                 }
-                return <Module {...props} />;
+                return <Module {...props} user={user} />;
               }}
             />
             <Route
               path="/confirmed/:id"
               render={(props) => {
-                if (!localStorage.getItem("token")) {
-                  return <Redirect to="login" />;
-                }
                 return <Confimed {...props} />;
               }}
             />
@@ -117,10 +111,7 @@ class App extends Component {
             <Route path="/register" component={Registerform} />
             <Route path="/eresource/:name" exact component={viewEresource} />
             <Route path="/eresource" component={Eresource} />
-            <Route path="/aboutus" component={Whatwedo} />
-            <Route path="/partners" component={Partners} />
-            <Route path="/contactus" component={Contact} />
-            <Route path="/" exact component={HomePage} />
+            <Route path="/" component={HomePage} />
           </Switch>
           <NavFooter />
         </main>

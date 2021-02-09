@@ -13,6 +13,10 @@ export function reachUser(userId, user) {
   return http.post(apiUrl + "/user/module/" + userId, user);
 }
 
+export function userModule(userId) {
+  return http.get(apiUrl + "/user/module/" + userId);
+}
+
 export function pageUser(userId, user) {
   return http.put(apiUrl + "/user/module/page/" + userId, user);
 }

@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import { getTopic, getModule } from "../../service/topic";
+import { getModule } from "../../service/topic";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { apiUrl } from "../../service/config.json";
+import ReactLoad from "../../reactload";
 
 class DeleteModule extends Component {
   state = { topic: [], modules: [], selectedTopic: "" };
 
-  async componentDidMount() {
-    const { data } = await getTopic();
-    const topic = [...data];
-    this.setState({ topic });
-  }
   async handleTopicSelect(item) {
     const { data } = await getModule(item._id);
     const modules = [...data];
@@ -45,47 +41,55 @@ class DeleteModule extends Component {
           <h6 className="my-2 text-center">DELETE A MODULE</h6>
           <br />
           <label className="m-1">PICK A TOPIC</label>
-          <ul className="list-group">
-            {this.state.topic.map((item) => (
-              <li
-                onClick={() => this.handleTopicSelect(item)}
-                key={item._id}
-                className={
-                  item === this.state.selectedTopic
-                    ? "list-group-item active"
-                    : "list-group-item"
-                }
-                style={{ cursor: "pointer" }}
-              >
-                {item.topic}
-              </li>
-            ))}
-          </ul>
-
-          <div className="jumbotron p-2 m-1">
-            <label>Choose a module within the topic to delete:</label>
+          {!this.props.topic ? (
+            <div className="d-flex justify-content-center">
+              <ReactLoad type={"bars"} color={"black"} />
+            </div>
+          ) : (
             <ul className="list-group">
-              {this.state.modules.map((item) => (
+              {this.props.topic.map((item) => (
                 <li
-                  onClick={() => this.handleModuleSelect(item)}
+                  onClick={() => this.handleTopicSelect(item)}
                   key={item._id}
                   className={
-                    item === this.state.selectedModule
+                    item === this.state.selectedTopic
                       ? "list-group-item active"
                       : "list-group-item"
                   }
                   style={{ cursor: "pointer" }}
                 >
-                  {item.heading}
+                  {item.topic}
                 </li>
               ))}
             </ul>
-          </div>
+          )}
+
+          {this.state.selectedTopic && (
+            <div className="jumbotron p-2 m-1">
+              <label>Choose a module within the topic to delete:</label>
+              <ul className="list-group">
+                {this.state.modules.map((item) => (
+                  <li
+                    onClick={() => this.handleModuleSelect(item)}
+                    key={item._id}
+                    className={
+                      item === this.state.selectedModule
+                        ? "list-group-item active"
+                        : "list-group-item"
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {item.heading}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div
             className="btn btn-danger m-2"
             onClick={() => this.handleDelete(this.state.selectedModule)}
           >
-            DELETE A TOPIC
+            DELETE A MODULE
           </div>
         </div>
       </React.Fragment>

@@ -3,11 +3,12 @@ import QuestionTable from "../QuestionTable";
 import ListGroup from "../listGroup";
 import Pagination from "../pagination";
 import { paginate } from "../paginate";
-import { getQuestion, deleteQuestion } from "../../service/questions";
+import { deleteQuestion } from "../../service/questions";
 import { toast } from "react-toastify";
 import _ from "lodash";
-import { getTopic, getModule } from "../../service/topic";
+import { getModule } from "../../service/topic";
 import { getTestId } from "../../service/test";
+import ReactLoad from "../../reactload";
 
 class Question extends Component {
   state = {
@@ -20,11 +21,6 @@ class Question extends Component {
     sortColumn: { path: "module", order: "asc" },
   };
 
-  async componentDidMount() {
-    const { data } = await getTopic();
-    const topic = [...data];
-    this.setState({ topic });
-  }
   async handleTopicSelect(topic) {
     const { data } = await getModule(topic._id);
     const modules = [...data];
@@ -96,19 +92,25 @@ class Question extends Component {
         <div className="row p-1">
           <div className="col-4">
             <label>CHOOSE A TITLE</label>
-            {this.state.topic.map((item) => (
-              <div className="form-check" key={item._id}>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="exampleRadios"
-                  id="exampleRadios1"
-                  value="option1"
-                  onClick={() => this.handleTopicSelect(item)}
-                />
-                <label className="form-check-label">{item.topic}</label>
+            {!this.props.topic ? (
+              <div className="d-flex justify-content-center">
+                <ReactLoad type={"bars"} color={"black"} />
               </div>
-            ))}
+            ) : (
+              this.props.topic.map((item) => (
+                <div className="form-check" key={item._id}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="exampleRadios"
+                    id="exampleRadios1"
+                    value="option1"
+                    onClick={() => this.handleTopicSelect(item)}
+                  />
+                  <label className="form-check-label">{item.topic}</label>
+                </div>
+              ))
+            )}
           </div>
           <div className="col">
             {this.state.modules ? (

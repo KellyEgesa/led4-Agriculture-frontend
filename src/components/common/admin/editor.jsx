@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../Form";
 import Joi from "joi-browser";
-import { getTopic, getModule } from "../../service/topic";
+import { getModule } from "../../service/topic";
 import { saveQuestion } from "../../service/questions";
 import { toast } from "react-toastify";
 import ReactLoad from "../../reactload";

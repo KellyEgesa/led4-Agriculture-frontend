@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { apiUrl } from "../../service/config.json";
 import Form from ".././Form";
-import { getTopic, saveTopic, getModule } from "../../service/topic";
+import { getTopic, getModule } from "../../service/topic";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
 import ReactLoad from "../../reactload";
@@ -209,11 +209,6 @@ class Edit extends Form {
                   </form>
                 )}
               </div>
-            </div>
-          </div>
-          <div className="col-sm-5" style={{ width: "20rem" }}>
-            <div className="card my-1 p-2">
-              <EditTopic doSubmit={this.doSubmit} topic={topic} />
             </div>
           </div>
         </div>

@@ -13,13 +13,14 @@ class Eresource extends Component {
     this.props.history.push("/eresource/" + items);
   }
   render() {
+    let a = Math.floor(Math.random() * 10);
     return (
       <div className="container-fluid justify-content-center" id="root2">
         <div className="row p-flex justify-content-center" id="root">
           {this.state.resources.map((items) => (
             <div
               className="col-m"
-              key="items"
+              key={a++}
               style={{ width: "20rem", height: "10rem" }}
             >
               <div
